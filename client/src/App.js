@@ -1,16 +1,24 @@
 import { useState } from "react";
 import "./App.css";
 
-function TaskInput( {value, onChange} ){
+function TaskInput({ value, onChange }) {
   return (
-    <input type="text" placeholder="Enter task" value={value} onChange={onChange} className="Task-input"/>
-  )
+    <input
+      type="text"
+      placeholder="Enter task"
+      value={value}
+      onChange={onChange}
+      className="Task-input"
+    />
+  );
 }
 
-function TaskButton( {onClick} ){
+function TaskButton({ onClick }) {
   return (
-    <button onClick={onClick} className="Task-button">Add Task</button>
-  )
+    <button onClick={onClick} className="Task-button">
+      Add Task
+    </button>
+  );
 }
 
 function App() {
@@ -19,35 +27,44 @@ function App() {
 
   const handleInputChange = (event) => {
     setTask(event.target.value);
-  }
+  };
 
   const handleButtonClick = () => {
     if (task.trim()) {
-        setTasks([...tasks, task]);
-        setTask("");
+      setTasks([...tasks, task]);
+      setTask("");
     }
-  }
+  };
 
   const HandleDeleteTaskClick = (index) => {
-    setTasks(tasks.filter((_, i) => i !== index))
-  }
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1 className="App-title">Locked In Task Manager</h1>
         <div className="Task-input-container">
-          <TaskInput value={task} onChange={handleInputChange}/>
+          <TaskInput value={task} onChange={handleInputChange} />
         </div>
         <div className="Task-button-container">
-          <TaskButton onClick={handleButtonClick}/>
+          <TaskButton onClick={handleButtonClick} />
         </div>
-        <ul className={`Task-list ${tasks.length > 0 ? "Task-list-bordered" : ""}`}>
+        <ul
+          className={`Task-list ${
+            tasks.length > 0 ? "Task-list-bordered" : ""
+          }`}
+        >
           {tasks.map((task, index) => (
-              <li key={index}>{
-                task}
-                <button onClick={()=> HandleDeleteTaskClick(index)}>Delete Task</button>
-              </li>
+            <li key={index}>
+              {task}
+              <button
+                onClick={() => HandleDeleteTaskClick(index)}
+                className="Task-delete-button"
+              >
+                Delete Task
+              </button>
+            </li>
           ))}
         </ul>
       </header>
